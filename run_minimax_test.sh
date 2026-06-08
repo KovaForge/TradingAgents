@@ -31,9 +31,9 @@ export MINIMAX_API_KEY
 export TRADINGAGENTS_LLM_PROVIDER=minimax
 export TRADINGAGENTS_DEEP_THINK_LLM=minimax-text-01
 export TRADINGAGENTS_QUICK_THINK_LLM=minimax-text-01
-export TRADINGAGENTS_MAX_DEBATE_ROUNDS=1   # Critical: prevents timeout
+export TRADINGAGENTS_MAX_DEBATE_ROUNDS=0   # Ultra-fast: no debate rounds
 
-echo "Running fast Minimax test..."
+echo "Running fast Minimax test (historical date)..."
 cd "$(dirname "$0")"
 source .venv/bin/activate
-python test_minimax_fast.py
+python test_minimax_ultra_minimal.py
