@@ -16,6 +16,7 @@ from typing import Optional
 
 PROVIDER_API_KEY_ENV: dict[str, Optional[str]] = {
     "openai":     "OPENAI_API_KEY",
+    "openai-oauth": "OPENAI_OAUTH_TOKEN",  # OpenAI OAuth token (Hermes-compatible)
     "anthropic":  "ANTHROPIC_API_KEY",
     "google":     "GOOGLE_API_KEY",
     "azure":      "AZURE_OPENAI_API_KEY",

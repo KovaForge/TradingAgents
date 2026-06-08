@@ -154,6 +154,8 @@ _PASSTHROUGH_KWARGS = (
 # separate endpoints because international and China accounts cannot share
 # credentials (#758).
 _PROVIDER_BASE_URL = {
+    "openai":     "https://api.openai.com/v1",
+    "openai-oauth": "https://api.openai.com/v1",
     "xai":        "https://api.x.ai/v1",
     "xai-oauth":  "https://api.x.ai/v1",
     "deepseek":   "https://api.deepseek.com",
@@ -215,7 +217,7 @@ class OpenAIClient(BaseLLMClient):
             llm_kwargs["base_url"] = self.base_url or _resolve_provider_base_url(self.provider)
             api_key_env = get_api_key_env(self.provider)
             if api_key_env:
-                api_key = os.environ.get(api_key_env) or os.environ.get("XAI_API_KEY")
+                api_key = os.environ.get(api_key_env) or os.environ.get("OPENAI_API_KEY")
                 if api_key:
                     llm_kwargs["api_key"] = api_key
                 else:
