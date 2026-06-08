@@ -10,17 +10,27 @@
 
 set -euo pipefail
 
+ENV_LOCAL="/Users/mike/Projects/KovaForge/openclaw-doctor/.env.local"
 BWS="/Users/mike/.hermes/profiles/aoife/bin/bws"
 PROJECT_ID="1df965c2-4642-4e08-b5a9-3c1def0fce25"
 TOKEN_KEY="OPENAI_OAUTH_TOKEN"
 
-echo "Fetching ${TOKEN_KEY} from BSM..."
-OPENAI_OAUTH_TOKEN=$($BWS secret list "$PROJECT_ID" \
-  | jq -r '.[] | select(.key=="'"$TOKEN_KEY"'") | .id' \
-  | xargs -I {} $BWS secret get {} | jq -r .value)
+# 1. Try loading from .env.local first (preferred long-term location)
+if [ -f "$ENV_LOCAL" ]; then
+  # shellcheck disable=SC1090
+  source "$ENV_LOCAL"
+fi
 
-if [ -z "$OPENAI_OAUTH_TOKEN" ]; then
-  echo "ERROR: Could not retrieve ${TOKEN_KEY} from BSM"
+# 2. If still not set, fetch from BSM
+if [ -z "${OPENAI_OAUTH_TOKEN:-}" ]; then
+  echo "Fetching ${TOKEN_KEY} from BSM..."
+  OPENAI_OAUTH_TOKEN=$($BWS secret list "$PROJECT_ID" \
+    | jq -r '.[] | select(.key=="'"$TOKEN_KEY"'") | .id' \
+    | xargs -I {} $BWS secret get {} | jq -r .value)
+fi
+
+if [ -z "${OPENAI_OAUTH_TOKEN:-}" ]; then
+  echo "ERROR: Could not retrieve ${TOKEN_KEY} (checked .env.local and BSM)"
   exit 1
 fi
 
