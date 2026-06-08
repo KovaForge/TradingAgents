@@ -17,8 +17,7 @@ TOKEN_KEY="OPENAI_OAUTH_TOKEN"
 
 # 1. Try loading from .env.local first (preferred long-term location)
 if [ -f "$ENV_LOCAL" ]; then
-  # shellcheck disable=SC1090
-  source "$ENV_LOCAL"
+  OPENAI_OAUTH_TOKEN=$(grep -E '^OPENAI_OAUTH_TOKEN=' "$ENV_LOCAL" | head -1 | cut -d= -f2- | tr -d '"' | tr -d "'")
 fi
 
 # 2. If still not set, fetch from BSM
