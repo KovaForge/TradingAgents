@@ -155,6 +155,7 @@ _PASSTHROUGH_KWARGS = (
 # credentials (#758).
 _PROVIDER_BASE_URL = {
     "xai":        "https://api.x.ai/v1",
+    "xai-oauth":  "https://api.x.ai/v1",
     "deepseek":   "https://api.deepseek.com",
     "qwen":       "https://dashscope-intl.aliyuncs.com/compatible-mode/v1",
     "qwen-cn":    "https://dashscope.aliyuncs.com/compatible-mode/v1",
