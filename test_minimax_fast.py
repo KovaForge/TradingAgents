@@ -12,8 +12,8 @@ import os
 
 
 def main():
-    # Force fast test settings
-    os.environ.setdefault("TRADINGAGENTS_MAX_DEBATE_ROUNDS", "1")
+    # Force ultra-fast test settings
+    os.environ.setdefault("TRADINGAGENTS_MAX_DEBATE_ROUNDS", "0")
     os.environ.setdefault("TRADINGAGENTS_LLM_PROVIDER", "minimax")
     os.environ.setdefault("TRADINGAGENTS_DEEP_THINK_LLM", "minimax-text-01")
     os.environ.setdefault("TRADINGAGENTS_QUICK_THINK_LLM", "minimax-text-01")
@@ -21,8 +21,8 @@ def main():
     config = DEFAULT_CONFIG.copy()
     ta = TradingAgentsGraph(debug=False, config=config)
 
-    print("Running fast Minimax test (1 round)...")
-    _, decision = ta.propagate("TSLA", "2026-06-09")
+    print("Running fast Minimax test (0 rounds)...")
+    _, decision = ta.propagate("TSLA", "2025-06-09")
 
     print("\n=== DECISION ===")
     print(decision)
